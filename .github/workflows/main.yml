@@ -14,7 +14,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: Show Xcode
         run: xcodebuild -version
-      - name: Build iOS 12 UIKit app
+      - name: Build UIKit app
         run: |
           xcodebuild -project NOVA_iOS12_Swift_Project/NOVACalculator.xcodeproj -scheme NOVACalculator -configuration Release -sdk iphoneos -derivedDataPath "$RUNNER_TEMP/NOVA-Build" IPHONEOS_DEPLOYMENT_TARGET=12.0 CODE_SIGNING_ALLOWED=NO build
       - name: Package unsigned IPA
@@ -25,7 +25,7 @@ jobs:
           cp -R "$APP" "$RUNNER_TEMP/package/Payload/NOVACalculator.app"
           cd "$RUNNER_TEMP/package"
           /usr/bin/zip -qry "$GITHUB_WORKSPACE/NOVA-iOS12-unsigned.ipa" Payload
-      - name: Package project ZIP
+      - name: Package source ZIP
         run: /usr/bin/zip -qr "$GITHUB_WORKSPACE/NOVA_iOS12_Swift_Project.zip" NOVA_iOS12_Swift_Project
       - uses: actions/upload-artifact@v4
         with:
